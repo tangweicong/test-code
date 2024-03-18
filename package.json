@@ -26,11 +26,6 @@
     "*.{vue,ts}": "eslint --fix",
     "*.{html,vue,css,sass,scss}": "stylelint --fix"
   },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-git"
-    }
-  },
   "dependencies": {
     "pinia": "2.1.4",
     "vue": "3.3.4",

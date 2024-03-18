@@ -13,7 +13,7 @@ import {
 } from 'echarts/components'
 import { graphic, use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { onMounted, provide, ref } from 'vue'
+import { onBeforeUnmount, onMounted, provide, ref } from 'vue'
 import VChart, { THEME_KEY } from 'vue-echarts'
 
 use([
@@ -213,15 +213,17 @@ const option = ref({
 
 const chartInstance = ref<InstanceType<typeof VChart>>()
 
-onMounted(() => {
-  const resizeHandler = () => {
-    chartInstance.value?.resize()
-  }
-  window.addEventListener('resize', resizeHandler)
+const resizeHandler = () => {
+  chartInstance.value?.resize()
+}
 
-  return () => {
-    window.removeEventListener('resize', resizeHandler)
-  }
+onMounted(() => {
+  window.addEventListener('resize', resizeHandler)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', resizeHandler)
+  chartInstance.value?.dispose()
 })
 </script>
 
