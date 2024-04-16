@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Error, Success, Wallet } from '@icon-park/vue-next'
-
+import { onMounted, onUnmounted, ref} from 'vue';
 import type { QuoteBlockInfo } from '@/types/block'
+
 
 const STATUS_MAP = {
   success: {
@@ -27,13 +28,29 @@ const STATUS_MAP = {
 const props = defineProps<{
   blockInfo: QuoteBlockInfo
 }>()
-
+// console.log(props.blockInfo);
+// onMounted(() => {
+//   console.log(props.blockInfo, 'x,,x');
+//   props.blockInfo.lifecycle.mounted()
+// })
+// onUnmounted(() => {
+//   console.log(3);
+// })
 const { color, bgColor, /* borderColor, */ icon } = STATUS_MAP[props.blockInfo.props.status]
+  // 拿到当前组件的实例
+  // const quoteRef = ref<HTMLDivElement | null>(null)
+function click() {
+  props.blockInfo.actions.onClick(props.blockInfo);
+  console.log(props.blockInfo);
+  
+}
 </script>
 
 <template>
   <div
+    @click="click"
     class="quote"
+    ref="quoteRef"
     :style="{ backgroundColor: bgColor, color /* , border: `1px solid ${borderColor}` */ }"
   >
     <component :is="icon" />

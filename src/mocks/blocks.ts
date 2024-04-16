@@ -8,7 +8,17 @@ export const blocks: BlockInfo[] = [
     props: {
       content: '引述文本 quote',
       status: 'success'
-    }
+    },
+    lifecycle: {
+      mounted: () => {
+        console.log('smdasmsdm');
+      }
+    },
+    actions: {
+      onClick: (data) => {
+        data.props.content = 'sllsll'
+      },
+    },
   },
   {
     id: '2',

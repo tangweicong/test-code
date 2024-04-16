@@ -5,7 +5,13 @@ export type BlockType = BasicBlockType | ExternalBlockType
 
 export interface BaseBlockInfo {
   id: string
-  label: string
+  label: string,
+  lifecycle?: {
+    created?(): void,
+    mounted?(): void,
+    unmounted?(): void,
+    destoryed?(): void,
+  },
 }
 
 // basic
@@ -28,7 +34,10 @@ export interface ViewBlockInfo extends BaseBlockInfo {
       visible: boolean
     }[]
     data: { id: string; value: string }[]
-  }
+  },
+  actions?: {
+    onRowClick(): void,
+  },
 }
 
 export type QuoteBlockStatus = 'success' | 'warning' | 'error'
@@ -38,7 +47,10 @@ export interface QuoteBlockInfo extends BaseBlockInfo {
   props: {
     content: string
     status: QuoteBlockStatus
-  }
+  },
+  actions?: {
+    onClick?(data: any): void,
+  },
 }
 
 export interface ImageBlockInfo extends BaseBlockInfo {
